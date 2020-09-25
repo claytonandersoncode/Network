@@ -1,0 +1,49 @@
+textarea {
+    min-height: 100px;
+    height: 100px;
+}
+
+#like-button {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#edit-button {
+    color: #0275d8;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#post {
+    border: 1px solid lightgrey;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+#post a {
+    text-decoration: none;
+}
+
+#post p {
+    padding-left: 8px;
+}
+
+#compose-view {
+    border: 1px solid lightgrey;
+    padding: 15px;
+}
+
+#pagination {
+    margin-top: 15px;
+}
+
+#pagination a {
+    text-decoration: none;
+}
+
+#user-profile {
+    border: 1px solid lightgrey;
+    padding: 15px;
+    margin-top: 15px;
+}
