@@ -1,5 +1,6 @@
 {% extends "network/layout.html" %}
 {% load static %}
+{% load tz %}
 
 {% block body %}
 
@@ -31,7 +32,7 @@
             <div id="edit-area-{{post.id}}">
                 <p id="post-body-{{post.id}}">{{post.body}}</p>
             </div>
-            <p><small class="text-muted">{{post.date}}</small></p>
+            <p><small class="text-muted">{{post.date|timezone:"US/Central"}}</small></p>
             <div class="d-flex justify-content-start">
                 {% if user.is_authenticated and user != post.who_created %}
                     <div class="p-2 bd-highlight">
