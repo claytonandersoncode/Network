@@ -8,9 +8,14 @@ from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django import forms
 
 from .models import User, Post, Like, Follow
 
+class ComposeForm(forms.Form):
+    body = forms.CharField(label=False, max_length=500, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Post', 'id': 'compose-body', 'cols': 200,
+        'rows': 3,}))
+    
 
 def index(request):
 
@@ -32,29 +37,39 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "network/index.html", {
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'composeform': ComposeForm()
     })
 
-@csrf_exempt
 @login_required
 def compose(request):
 
-    # Composing a new post must be via POST
-    if request.method != "POST":
-        return JsonResponse({"error": "POST request required."}, status=400)
+    if request.method == "POST":
 
-    # Get contents of post
-    data = json.loads(request.body)
-    body = data.get("body", "")
+        # Take in the data the user submitted and save it as form
+        form = ComposeForm(request.POST)
 
-    # Create post object
-    post = Post(
-        who_created=request.user,
-        body=body,
-    )
-    post.save()
+        # Check if form data is valid (server-side)
+        if form.is_valid():
 
-    return JsonResponse({"message": "Post created successfully."}, status=201)
+            # Isolate the variables from the 'cleaned' version of form data
+            body = form.cleaned_data["body"]
+            who_created = request.user
+
+            # Create a listing object and a bid object related to it
+            post = Post(body=body, who_created=who_created)
+            post.save()
+
+            # Redirect user to index
+            return HttpResponseRedirect(reverse("index"))
+
+        else:
+
+            # If the form is invalid, re-render the page with existing information.
+            return render(request, "network/index.html", {
+                "composeform": form
+            })
+
 
 @csrf_exempt
 @login_required

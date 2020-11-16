@@ -9,7 +9,7 @@
     <!--All Posts Go Here-->
     {% for post, liked in page_obj %}
     <div id="posts-view">
-        <div id=post>
+        <div id="post">
             <div id="like" class="d-flex justify-content-start">
                 <div class="p-2 bd-highlight"><h5><a href="{% url 'profile' post.who_created %}">{{post.who_created}}</a></h5></div>
             </div>
