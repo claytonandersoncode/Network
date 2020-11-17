@@ -9,6 +9,7 @@
     {% if user.is_authenticated %}
     <!--Compose -->
     <div id="compose-view">
+        <h4>New Post</h4>
         <form action="{% url 'compose' %}" method="post">
             {% csrf_token %}
             <table>
