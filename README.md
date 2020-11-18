@@ -6,4 +6,4 @@ Built with Python, Django, Javascript, and Bootstrap 4
 
 # Demo
 
-TODO
+[![Network Demo](demo/networkdemo.png)](https://www.youtube.com/watch?v=q1G_Rngu1_o)
